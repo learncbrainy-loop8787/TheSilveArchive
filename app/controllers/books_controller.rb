@@ -7,7 +7,7 @@ class BooksController < ApplicationController
     
     def index
         if params[:user_id]
-          @books = @current_user.books
+          @books = current_user.books
         else
           @books = Book.all
         end
@@ -39,7 +39,7 @@ class BooksController < ApplicationController
     def edit
         if !@book
           flash["alert alert-info"] = "This book doesn't yours."
-        #   render plain: flash[:notice]
+        
           redirect_to books_path
         end
     end
@@ -54,7 +54,10 @@ class BooksController < ApplicationController
     end
 
     def destroy
-        @book.delete
+        @book = Book.find(params[:id])
+        
+       @book.destroy
+
         flash["alert alert-info"] = "Book successfully removed."
         redirect_to books_path
     end

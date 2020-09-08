@@ -1,5 +1,9 @@
+
+# Resources = instead of declaring separate routes for the actions you want to do you can simply declare them using a resourceful route
+# Routes = It's a way to redirect incoming requests to controllers and actions
+
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'home#index'
   resources :reviews
   resources :users, only: [:show] do
@@ -13,4 +17,5 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   post '/logout', to: 'sessions#destroy'
   get '/auth/facebook/callback', to: 'sessions#create'
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
