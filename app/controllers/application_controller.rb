@@ -1,3 +1,9 @@
+
+#The Rails controller is the logical center of your application. 
+#It coordinates the interaction between the user, the views, and the model. 
+#The controller is also a home to a number of important ancillary services. 
+#It is responsible for routing external requests to internal actions.
+
 class ApplicationController < ActionController::Base
     helper_method :logged_in?, :current_user#, :require_login, :require_author
     before_action :require_login

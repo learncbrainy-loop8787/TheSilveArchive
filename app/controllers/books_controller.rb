@@ -8,6 +8,8 @@ class BooksController < ApplicationController
     def index
         if params[:user_id]
           @books = @current_user.books
+        elsif params[:book]
+          @books = Book.book_search(params[:book])
         else
           @books = Book.all
         end
@@ -27,6 +29,11 @@ class BooksController < ApplicationController
         end
     end
 
+    def top_ten
+        @books = Book.sort_by_name.limit(10)
+        render :index
+    end
+
     def show
         if !@book
           flash["alert alert-info"] = "Book does not exist."
@@ -39,7 +46,7 @@ class BooksController < ApplicationController
     def edit
         if !@book
           flash["alert alert-info"] = "This book doesn't yours."
-        #   render plain: flash[:notice]
+        
           redirect_to books_path
         end
     end
@@ -54,10 +61,15 @@ class BooksController < ApplicationController
     end
 
     def destroy
-        @book.delete
+        @book = Book.find(params[:id])
+        
+       @book.destroy
+
         flash["alert alert-info"] = "Book successfully removed."
         redirect_to books_path
     end
+
+   
 
     private
 

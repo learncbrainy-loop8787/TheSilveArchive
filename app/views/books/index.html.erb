@@ -1,5 +1,12 @@
 <% title 'All Books'%>
-
+<%=link_to "Alpha Books!", books_top_ten_path %>
+     <span>
+        <%= form_tag books_path, method:'get' do %>
+        <h3><%= label_tag (:book), "Enter Title of Book:"%></h3>
+        <%= text_field_tag :book, params[:title], placeholder:"Enter title"%>
+        <%= submit_tag "Search", name: nil%>
+          <% end %>
+            </span>
 <div class="container">
   <div class="row">
     <% @books.each do |book| %>
@@ -8,6 +15,7 @@
           <div class="card-body">
             <h5 class="card-title"><%= book.title %></h5>
             <%= link_to "View", user_book_path(book.author_name,book), class: 'btn btn-primary' %>
+       
           </div>
         </div>
       </div>

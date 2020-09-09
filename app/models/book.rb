@@ -14,6 +14,11 @@ class Book < ApplicationRecord
         validates :isbn, presence: true, uniqueness: true
 
 
+        scope :sort_by_name, -> {self.order(title: :asc)}
+        scope :book_search, -> (book) {self.where("title LIKE ?", "%#{book}%")}
+
+
+
     def average_rating
         Review.where(book_id: id).average(:stars).to_i
     end
